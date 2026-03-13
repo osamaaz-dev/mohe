@@ -1,0 +1,212 @@
+body {
+  margin: 0;
+  background: url(images/BG.jpg);
+  font-family: 'QomraBlack';
+  direction: rtl;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.main-title { color: #094239; font-size: 40px; margin-top: 20px; }
+.sub-title { color: #427f77; font-family: 'QomraMedium'; margin-top: -15px; margin-bottom: 30px; }
+
+/* الحاوية المتجاوبة */
+.main-container {
+  display: flex;
+  flex-direction: row-reverse; /* اليمين أدوات واليسار معاينة */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* عمود التحكم */
+.sidebar-controls {
+  flex: 0 0 400px; /* عرض ثابت في الشاشات الكبيرة */
+  background: rgba(255, 255, 255, 0.7);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  backdrop-filter: blur(5px);
+}
+
+.input-group input, .input-group textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button {
+  background: #b8a678;
+  font-family: 'QomraLight';
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  width: 140px;
+  height: 45px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover { background: #094239; }
+
+/* منطقة المعاينة */
+.preview-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.preview-frame {
+  width: 100%;
+  max-width: 550px; /* حجم مناسب للعرض الجانبي */
+  aspect-ratio: 1080 / 1350;
+  border: 4px solid #094239;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+#design {
+  width: 1080px;
+  height: 1350px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  background-size: cover;
+  background-position: center;
+}
+
+/* أدوات التعديل */
+.font-controls { margin-top: 20px; text-align: right; }
+.control-item { margin-bottom: 15px; }
+.control-item label { display: block; font-size: 14px; margin-bottom: 5px; color: #094239; }
+.control-item input[type="range"] { width: 100%; cursor: pointer; }
+
+/* شبكة القوالب */
+.template-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.template-grid img {
+  width: 60px;
+  height: 75px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.template-grid img.active { border-color: #b8a678; transform: scale(1.1); }
+
+/* نصوص داخل التصميم */
+.overlay {
+  position: absolute;
+  right: 80px;
+  left: 80px;
+  text-align: right;
+  /* هذا السطر هو المسؤول عن حركة النص الانسيابية */
+  transition: all 0.5s ease-out; 
+}
+
+#newsTitle { font-family: 'QomraBlack'; color: #b9a779; margin-bottom: -30px;  font-size: 70px;  }
+#newsContent { font-family: 'QomraRegular'; line-height: 1.6; text-align: justify;  font-size: 35px; }
+
+/* التوافق مع الموبايل */
+@media (max-width: 1024px) {
+  .main-container {
+    flex-direction: column; /* التحكم فوق والمعاينة تحت */
+    align-items: center;
+  }
+  
+  .sidebar-controls {
+    flex: none;
+    width: 90%;
+    margin-bottom: 30px;
+  }
+  
+  .preview-frame {
+    width: 90vw;
+  }
+}
+
+/* استيراد الخطوط كما هي */
+@font-face { font-family: 'QomraBlack'; src: url('fonts/itfQomraArabic-Black.otf') format('opentype'); }
+@font-face { font-family: 'QomraBold'; src: url('fonts/itfQomraArabic-Bold.otf') format('opentype'); }
+@font-face { font-family: 'QomraMedium'; src: url('fonts/itfQomraArabic-Medium.otf') format('opentype'); }
+@font-face { font-family: 'QomraRegular'; src: url('fonts/itfQomraArabic-Regular.otf') format('opentype'); }
+@font-face { font-family: 'QomraLight'; src: url('fonts/itfQomraArabic-Light.otf') format('opentype'); }
+
+/* كلاسات القوالب (Layouts) كما هي في ملفك الأصلي */
+.layout1 .overlay { 
+    color: #eeeadf;
+  position: absolute;
+  margin-left: 80px;
+  margin-right: 10px;
+  margin-top: 500px;
+  top: -150px;
+  right: 80px;
+  left: 20px;
+  text-align: right;
+}
+.layout1 #newsTitle { color: #eeeadf; }
+.layout2 .overlay { 
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  margin-top: 500px;
+  margin-left: 40px;
+  margin-right: 40px;
+  left: 100px;
+  text-align: center;
+ }
+.layout3 .overlay {
+  position: absolute;
+  top: 480px;
+  right: 80px;
+  left: 70px;
+  text-align: right;
+  margin-top: -10px;
+  margin-left: 450px;
+  margin-right: 20px; }
+.layout4 .overlay { 
+  position: absolute;
+  top: 310px;
+  right: 60px;
+  left: 60px;
+  text-align: right;
+  margin-left: 30px;
+  margin-right: 20px;
+  margin-top: -100px;
+
+}
+.layout5 .overlay {
+  position: absolute;
+  top: 360px;
+  right: 160px;
+  left: 160px;
+  text-align: right;
+  margin-left: 30px;
+  margin-right: 20px;
+  margin-top: -70px;
+ }
+.layout5 #newsTitle { color: #b9a779; }
+.layout5 #newsContent { color: #ffffff; }

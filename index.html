@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>مولد تصاميم الأخبار</title>
+<link href="images/logo.svg" rel="icon">
+<link rel="stylesheet" href="style.css">
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+<h2 class="main-title">مولد تصاميم الأخبار</h2>
+<h3 class="sub-title">وزارة التعليم العالي و البحث العلمي</h3>
+
+<div class="main-container">
+  
+  <div class="sidebar-controls">
+    <div class="input-group">
+      <input type="text" id="titleInput" placeholder="عنوان الخبر" style="font-family:'QomraLight'">
+      <textarea id="contentInput" placeholder="نص الخبر" style="font-family:'QomraLight'"></textarea>
+    </div>
+
+    <div class="template-grid">
+      <img src="templates/1.png" onclick="setTemplate('1.png','layout1', this)">
+      <img src="templates/2.jpg" onclick="setTemplate('2.jpg','layout2', this)">
+      <img src="templates/3.jpg" onclick="setTemplate('3.jpg','layout3', this)">
+      <img src="templates/4.jpg" onclick="setTemplate('4.jpg','layout4', this)">
+      <img src="templates/5.jpg" onclick="setTemplate('5.jpg','layout5', this)">
+    </div>
+
+    <div class="font-controls">
+      <div class="control-item">
+        <label>حجم العنوان</label>
+        <input type="range" min="30" max="150" value="70" id="titleSize" oninput="changeTitleSize(this.value)"> 
+      </div>
+
+      <div class="control-item">
+        <label>حجم النص</label>
+        <input type="range" min="20" max="100" value="40" id="contentSize" oninput="changeContentSize(this.value)">
+      </div>
+             
+      <div class="control-item">
+        <label>تحريك النص عمودياً</label>
+        <input type="range" min="-1000" max="1000" value="500" id="verticalPosition" oninput="moveText(this.value)">
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button onclick="generate()">تحديث النص</button>
+      <button onclick="download()">تحميل الصورة</button>
+    </div>
+  </div>
+
+  <div class="preview-section">
+    <div class="preview-frame">
+      <div id="design">
+        <div class="overlay">
+          <h1 id="newsTitle">عنوان الخبر</h1>
+          <p id="newsContent">نحن هنا لنبني جسوراً من المعرفة تربط بين الشغف والإنجاز، حيث تتحول المعلومة المجردة إلى مهارة ملموسة تفتح أبواب المستقبل</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// خوارزمية الكشيدة الذكية
+function applySmartKashida(text) {
+    if (!text) return "";
+    const kashidaChar = "ـ";
+    const connectableRegex = /[بتثجحخسشصضطظعغفقكلمنهي]/;
+
+    return text.split(' ').map(word => {
+        if (word.length <= 3) return word;
+        let result = word;
+        let positions = [];
+        for (let i = 1; i < word.length - 1; i++) {
+            if (connectableRegex.test(word[i])) { positions.push(i); }
+        }
+        if (positions.length > 0) {
+            if (word.length > 6 && positions.length > 1) {
+                let p1 = positions[Math.floor(positions.length * 0.3)];
+                let p2 = positions[Math.floor(positions.length * 0.7)];
+                result = word.slice(0, p1 + 1) + kashidaChar + word.slice(p1 + 1, p2 + 1) + kashidaChar + word.slice(p2 + 1);
+            } else {
+                let bestPos = positions[positions.length - 1];
+                result = word.slice(0, bestPos + 1) + kashidaChar + word.slice(bestPos + 1);
+            }
+        }
+        return result;
+    }).join(' ');
+}
+
+function generate() {
+    const titleVal = document.getElementById("titleInput").value;
+    const contentVal = document.getElementById("contentInput").value;
+    document.getElementById("newsTitle").innerText = titleVal || "عنوان الخبر";
+    document.getElementById("newsContent").innerText = applySmartKashida(contentVal) || "نص الخبر سيظهر هنا...";
+}
+
+function setTemplate(imageName, layoutClass, element) {
+    const design = document.getElementById("design");
+    design.style.backgroundImage = "url('templates/" + imageName + "')";
+    design.className = ""; 
+    design.classList.add(layoutClass);
+    document.querySelectorAll(".template-grid img").forEach(img => img.classList.remove("active"));
+    if(element) element.classList.add("active");
+}
+
+function download() {
+    const design = document.getElementById("design");
+    const title = document.getElementById("titleInput").value || "news";
+    let fileName = title.replace(/[\\/:*?"<>|]/g, "").replace(/\s+/g, "_");
+
+    // تصفير التحجيم مؤقتاً للتصدير بدقة عالية
+    const originalTransform = design.style.transform;
+    design.style.transform = "none";
+
+    html2canvas(design, { width: 1080, height: 1350, scale: 1 }).then(canvas => {
+        let link = document.createElement("a");
+        link.download = fileName + ".png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+        design.style.transform = originalTransform;
+    });
+}
+
+function changeTitleSize(size) { document.getElementById("newsTitle").style.fontSize = size + "px"; }
+function changeContentSize(size) { document.getElementById("newsContent").style.fontSize = size + "px"; }
+function moveText(value) { document.querySelector(".overlay").style.top = value + "px"; }
+
+function scalePreview() {
+    const frame = document.querySelector(".preview-frame");
+    const design = document.getElementById("design");
+    const scale = frame.clientWidth / 1080;
+    design.style.transform = "scale(" + scale + ")";
+}
+
+window.onload = function() {
+    scalePreview();
+    const firstTemp = document.querySelector(".template-grid img");
+    if(firstTemp) firstTemp.click(); 
+};
+window.onresize = scalePreview;
+</script>
+</body>
+</html>
