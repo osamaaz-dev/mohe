@@ -96,14 +96,29 @@ function generate() {
     const titleVal = document.getElementById("titleInput").value;
     const contentVal = document.getElementById("contentInput").value;
     document.getElementById("newsTitle").innerText = titleVal || "عنوان الخبر";
-    document.getElementById("newsContent").innerText = applySmartKashida(contentVal) || "نص الخبر سيظهر هنا...";
+    document.getElementById("newsContent").innerText = contentVal || "نص الخبر سيظهر هنا...";
+    //هاد لاستدعاء دالة الكشيدة بس مو شغال
+    // document.getElementById("newsContent").innerText = applySmartKashida(contentVal) || "نص الخبر سيظهر هنا..."; 
 }
 
 function setTemplate(imageName, layoutClass, element) {
     const design = document.getElementById("design");
+    const verticalSlider = document.getElementById("verticalPosition");
+    const overlay = document.querySelector(".overlay");
+
+    //تغيير القالب والكلاس
     design.style.backgroundImage = "url('templates/" + imageName + "')";
     design.className = ""; 
     design.classList.add(layoutClass);
+
+    //إعادة ضبط شريط التمرير للقيمة المتوسطة (أو الصفر حسب رغبتك)
+    // هنا سنعيده للقيمة 500 وهي القيمة الافتراضية في الـ HTML لديك
+    verticalSlider.value = 500; 
+
+    //مسح الإزاحة اليدوية التي تمت برمجياً ليعود القالب لإحداثيات الأساسية
+    overlay.style.top = ""; 
+
+    // 4. تحديث حالة الصور المصغرة
     document.querySelectorAll(".template-grid img").forEach(img => img.classList.remove("active"));
     if(element) element.classList.add("active");
 }
