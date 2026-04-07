@@ -28,6 +28,9 @@
       <img src="templates/5.jpg" onclick="setTemplate('5.jpg','layout5', this)">
       <img src="templates/6.jpg" onclick="setTemplate('6.jpg','layout6', this)">
       <img src="templates/7.jpg" onclick="setTemplate('7.jpg','layout7', this)">
+      <img src="templates/8.jpg" onclick="setTemplate('8.jpg','layout8', this)">
+      <img src="templates/9.jpg" onclick="setTemplate('9.jpg','layout9', this)">
+      <img src="templates/10.jpg" onclick="setTemplate('10.jpg','layout10', this)">
     </div>
 
     <div class="font-controls">
@@ -57,8 +60,7 @@
     <div class="action-buttons">
       <button onclick="generate()">تحديث النص</button>
       <button onclick="download()">تحميل الصورة</button>
-      <button onclick="sendToTelegram()" style="background: #0088cc; width: 70px;">إرسال لتلغرام</button>
-      
+      <button onclick="sendToTelegram()" style="background: #0088cc; width: 70px;">إرسال لتلغرام</button>      
     </div>
   </div>
 
@@ -194,8 +196,7 @@ window.onresize = scalePreview;
 async function sendToTelegram() {
     const design = document.getElementById("design");
     const botToken = "8320697814:AAGq5UTVDyzTWnL1FmiKHomrgKst7ddVsFM"; // ضع هنا التوكن الخاص بالبوت
-    const chatId = "-1003557221315";     // معرف مجموعة قسم الانتاج
-    // const chatId = "864990198";     // ضع هنا معرف الشات
+    const chatId = "-1003557221315";     // ضع هنا معرف الشات
 
     // تصفير التحجيم مؤقتاً للتصدير بدقة 1080p كما في وظيفة التحميل
     const originalTransform = design.style.transform;
@@ -249,6 +250,10 @@ function toggleAlignLast(isChecked) {
 
 // ID قسم الانتاج :   
 //-1003557221315
+
+// ID أســــــامة :   
+// 864990198
+
 </script>
 </body>
 </html>
