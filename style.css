@@ -237,3 +237,74 @@ button:hover { background: #094239; }
 .layout7 #newsTitle { color: #b9a779; margin-bottom: 20px; font-size: 50px; margin-left: 450px; 
   /* text-align: justify; text-align-last:justify ; */
 }
+
+.layout8 .overlay {
+  position: absolute;
+  top: 470px;
+  /* right: 160px; */
+  left: 60px;
+  text-align: right;
+  margin-left: 400px;
+  margin-right: 30px;
+  margin-top: -50px;
+ }
+.layout8 #newsTitle { display: none; 
+}
+
+.layout9 .overlay {
+  position: absolute;
+  top: 700px;
+  /* right: 160px; */
+  left: 60px;
+  text-align: right;
+  margin-left: 100px;
+  margin-right:100px;
+  margin-top: -50px;
+ }
+.layout9 #newsTitle { display: none; 
+}
+.layout10 .overlay {
+  position: absolute;
+  top: 700px;
+  /* right: 160px; */
+  left: 60px;
+  text-align: right;
+  margin-left: 100px;
+  margin-right:100px;
+  margin-top: -50px;
+ }
+.layout10 #newsTitle { display: none; 
+}
+
+/* الخلفية */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+}
+
+/* الصندوق */
+.modal-content {
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: right;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* زر الإغلاق */
+.close-btn {
+  float: left;
+  font-size: 28px;
+  cursor: pointer;
+  color: red;
+}
