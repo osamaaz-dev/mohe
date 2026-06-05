@@ -263,6 +263,7 @@ button:hover { background: #094239; }
  }
 .layout9 #newsTitle { display: none; 
 }
+
 .layout10 .overlay {
   position: absolute;
   top: 700px;
@@ -275,6 +276,25 @@ button:hover { background: #094239; }
  }
 .layout10 #newsTitle { display: none; 
 }
+
+
+.layout11 .overlay {
+  position: absolute;
+  top: 700px;
+  /* right: 160px; */
+  left: 60px;
+  text-align: right;
+  margin-left: 380px;
+  margin-right:10px;
+  margin-top: -240px;
+ }
+
+.layout11 #newsTitle { 
+  /* display: none; */
+    font-family: 'QomraMedium';
+    color: #3c3a3b;
+}
+
 
 /* الخلفية */
 .modal {
