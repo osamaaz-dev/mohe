@@ -5,6 +5,7 @@ body {
   direction: rtl;
   text-align: center;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .main-title { color: #094239; font-size: 40px; margin-top: 20px; }
@@ -13,23 +14,29 @@ body {
 /* الحاوية المتجاوبة */
 .main-container {
   display: flex;
-  flex-direction: row-reverse; /* اليمين أدوات واليسار معاينة */
+  flex-direction: row-reverse;
   justify-content: center;
   align-items: flex-start;
-  gap: 30px;
+  gap: 24px;
   padding: 20px;
   max-width: 1600px;
+  width: min(100%, 1600px);
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 /* عمود التحكم */
 .sidebar-controls {
-  flex: 0 0 400px; /* عرض ثابت في الشاشات الكبيرة */
+  flex: 0 1 400px;
+  width: min(400px, 100%);
+  max-width: 100%;
   background: rgba(255, 255, 255, 0.7);
-  padding: 25px;
+  padding: 16px 18px 12px;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   backdrop-filter: blur(5px);
+  box-sizing: border-box;
+  align-self: center;
 }
 
 .input-group input, .input-group textarea {
@@ -45,8 +52,9 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 8px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 button {
@@ -65,14 +73,15 @@ button:hover { background: #094239; }
 
 /* منطقة المعاينة */
 .preview-section {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   justify-content: center;
 }
 
 .preview-frame {
-  width: 100%;
-  max-width: 550px; /* حجم مناسب للعرض الجانبي */
+  width: min(100%, 550px);
+  max-width: 100%;
   aspect-ratio: 1080 / 1350;
   border: 4px solid #094239;
   position: relative;
@@ -92,8 +101,8 @@ button:hover { background: #094239; }
 }
 
 /* أدوات التعديل */
-.font-controls { margin-top: 20px; text-align: right; }
-.control-item { margin-bottom: 15px; }
+.font-controls { margin-top: 10px; text-align: right; }
+.control-item { margin-bottom: 10px; }
 .control-item label { display: block; font-size: 14px; margin-bottom: 5px; color: #094239; }
 .control-item input[type="range"] { width: 100%; cursor: pointer; }
 
@@ -101,9 +110,9 @@ button:hover { background: #094239; }
 .template-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
-  margin: 20px 0;
+  margin: 10px 0 12px;
 }
 
 .template-grid img {
@@ -130,21 +139,159 @@ button:hover { background: #094239; }
 #newsTitle { font-family: 'QomraBlack'; color: #b9a779; margin-bottom: -30px;  font-size: 70px;  }
 #newsContent { font-family: 'QomraRegular'; line-height: 1.6; text-align: justify;  font-size: 35px; }
 
-/* التوافق مع الموبايل */
-@media (max-width: 1024px) {
+@media (min-width: 1025px) {
+  body {
+    overflow: hidden;
+  }
+
+  .main-title {
+    font-size: 32px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+  }
+
+  .sub-title {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+  }
+
   .main-container {
-    flex-direction: column; /* التحكم فوق والمعاينة تحت */
+    height: calc(100vh - 110px);
+    align-items: stretch;
+    padding: 8px 20px 12px;
+    gap: 18px;
+  }
+
+  .sidebar-controls {
+    flex-basis: 760px;
+    max-height: 100%;
+    padding: 14px 16px;
+    overflow: hidden;
+  }
+
+  .input-group input,
+  .input-group textarea {
+    margin-bottom: 8px;
+    padding: 8px 10px;
+  }
+
+  .template-grid {
+    gap: 7px;
+    margin: 10px 0;
+  }
+
+  .template-grid img {
+    width: 48px;
+    height: 60px;
+  }
+
+  .font-controls {
+    margin-top: 10px;
+  }
+
+  .control-item {
+    margin-bottom: 8px;
+  }
+
+  .action-buttons {
+    margin-top: 10px;
+    gap: 8px;
+  }
+
+  button {
+    width: 120px;
+    height: 40px;
+  }
+
+  .preview-section {
     align-items: center;
   }
-  
-  .sidebar-controls {
-    flex: none;
-    width: 90%;
-    margin-bottom: 30px;
-  }
-  
+
   .preview-frame {
-    width: 90vw;
+    width: min(100%, 480px);
+    max-height: calc(100vh - 120px);
+  }
+}
+
+/* التوافق مع الموبايل */
+@media (max-width: 1200px) {
+  .main-container {
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .sidebar-controls {
+    flex-basis: 360px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar-controls {
+    flex: 0 1 auto;
+    width: min(100%, 720px);
+    margin-bottom: 24px;
+  }
+
+  .preview-section {
+    width: 100%;
+  }
+
+  .preview-frame {
+    width: min(92vw, 550px);
+  }
+}
+
+@media (max-width: 600px) {
+  .main-title {
+    font-size: 24px;
+    margin-top: 12px;
+  }
+
+  .sub-title {
+    font-size: 16px;
+    margin-top: -8px;
+    margin-bottom: 20px;
+  }
+
+  .main-container {
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .sidebar-controls {
+    width: 100%;
+    padding: 14px;
+    border-radius: 0px;
+  }
+
+  .action-buttons {
+    gap: 8px;
+  }
+
+  .action-buttons button {
+    width: calc(50% - 4px);
+    min-width: 0;
+    height: 42px;
+  }
+
+  .template-grid {
+    gap: 8px;
+  }
+
+  .template-grid img {
+    width: 54px;
+    height: 68px;
+  }
+
+  .preview-frame {
+    width: min(100%, calc(100vw - 20px));
   }
 }
 
@@ -187,6 +334,14 @@ button:hover { background: #094239; }
   margin-top: -10px;
   margin-left: 450px;
   margin-right: 20px; }
+  .layout3 #newsTitle {  
+    margin-bottom: -10  px;
+    color: #3b393a;
+    font-size: 40px;
+    font-family: 'QomraMedium';;
+    text-align: justify; text-align-last:justify ;
+ ; 
+}
 .layout4 .overlay { 
   position: absolute;
   top: 310px;
@@ -295,6 +450,26 @@ button:hover { background: #094239; }
     color: #3c3a3b;
 }
 
+.layout12 .overlay {
+  position: absolute;
+  top: 700px;
+  /* right: 160px; */
+  left: 60px;
+  text-align: right;
+  margin-left: 30px;
+  margin-right:10px;
+  margin-top:  -340px;}
+
+.layout12 #newsTitle { 
+  text-align: justify; text-align-last:justify ;
+  font-size: 40px;
+  margin-left: 380px;
+  margin-right:-10px;
+  margin-top: -40px;
+  margin-bottom: 100px;
+    font-family: 'QomraRegular';
+    color: #ede9de;
+}
 
 /* الخلفية */
 .modal {
